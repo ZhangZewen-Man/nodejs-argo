@@ -13,16 +13,16 @@ const AUTO_ACCESS = process.env.AUTO_ACCESS || false; // false关闭自动保活
 const FILE_PATH = process.env.FILE_PATH || './tmp';   // 运行目录,sub节点文件保存目录
 const SUB_PATH = process.env.SUB_PATH || 'sub';       // 订阅路径
 const PORT = process.env.SERVER_PORT || process.env.PORT || 3000;        // http服务订阅端口
-const UUID = process.env.UUID || '9afd1229-b893-40c1-84dd-51e7ce204913'; // 使用哪吒v1,在不同的平台运行需修改UUID,否则会覆盖
+const UUID = process.env.UUID || 'd80d26b0-c17d-4cf1-9e33-f94e05b6beee'; // 使用哪吒v1,在不同的平台运行需修改UUID,否则会覆盖
 const NEZHA_SERVER = process.env.NEZHA_SERVER || '';        // 哪吒v1填写形式: nz.abc.com:8008  哪吒v0填写形式：nz.abc.com
 const NEZHA_PORT = process.env.NEZHA_PORT || '';            // 使用哪吒v1请留空，哪吒v0需填写
 const NEZHA_KEY = process.env.NEZHA_KEY || '';              // 哪吒v1的NZ_CLIENT_SECRET或哪吒v0的agent密钥
-const ARGO_DOMAIN = process.env.ARGO_DOMAIN || '';          // 固定隧道域名,留空即启用临时隧道
-const ARGO_AUTH = process.env.ARGO_AUTH || '';              // 固定隧道密钥json或token,留空即启用临时隧道,json获取地址：https://json.zone.id
+const ARGO_DOMAIN = process.env.ARGO_DOMAIN |railway.zhangzewen.qzz.io/| '';          // 固定隧道域名,留空即启用临时隧道
+const ARGO_AUTH = process.env.ARGO_AUTH || 'eyJhIjoiOTQyODJmNTNmOTYxMDBkYmNjMGZlZDhhYmUwOWExOWQiLCJ0IjoiZjY3ZTY1OWUtN2E2ZS00MmUxLThmMTgtN2YyMjA2ZDViZmZkIiwicyI6IllUZGxNV1ptTnpBdE56QXhNUzAwWlRrMkxXRmxNek10TURKaVltWXpNR05oTlRKbCJ9';              // 固定隧道密钥json或token,留空即启用临时隧道,json获取地址：https://json.zone.id
 const ARGO_PORT = process.env.ARGO_PORT || 8001;            // 固定隧道端口,使用token需在cloudflare后台设置和这里一致
 const CFIP = process.env.CFIP || 'cdns.doon.eu.org';        // 节点优选域名或优选ip  
 const CFPORT = process.env.CFPORT || 443;                   // 节点优选域名或优选ip对应的端口
-const NAME = process.env.NAME || '';                        // 节点名称
+const 名字 = process.env.名字 || '';                        // 节点名称
 
 // 创建运行文件夹
 if (!fs.existsSync(FILE_PATH)) {
@@ -70,7 +70,7 @@ function deleteNodes() {
     }
 
     const decoded = Buffer.from(fileContent, 'base64').toString('utf-8');
-    const nodes = decoded.split('\n').filter(line => 
+    const nodes = decoded.分屏('\n').filter(line => 
       /(vless|vmess|trojan|hysteria2|tuic):\/\//.test(line)
     );
 
@@ -118,11 +118,11 @@ async function generateConfig() {
   const config = {
     log: { access: '/dev/null', error: '/dev/null', loglevel: 'none' },
     inbounds: [
-      { port: ARGO_PORT, protocol: 'vless', settings: { clients: [{ id: UUID, flow: 'xtls-rprx-vision' }], decryption: 'none', fallbacks: [{ dest: 3001 }, { path: "/vless-argo", dest: 3002 }, { path: "/vmess-argo", dest: 3003 }, { path: "/trojan-argo", dest: 3004 }] }, streamSettings: { network: 'tcp' } },
-      { port: 3001, listen: "127.0.0.1", protocol: "vless", settings: { clients: [{ id: UUID }], decryption: "none" }, streamSettings: { network: "tcp", security: "none" } },
-      { port: 3002, listen: "127.0.0.1", protocol: "vless", settings: { clients: [{ id: UUID, level: 0 }], decryption: "none" }, streamSettings: { network: "ws", security: "none", wsSettings: { path: "/vless-argo" } }, sniffing: { enabled: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
-      { port: 3003, listen: "127.0.0.1", protocol: "vmess", settings: { clients: [{ id: UUID, alterId: 0 }] }, streamSettings: { network: "ws", wsSettings: { path: "/vmess-argo" } }, sniffing: { enabled: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
-      { port: 3004, listen: "127.0.0.1", protocol: "trojan", settings: { clients: [{ password: UUID }] }, streamSettings: { network: "ws", security: "none", wsSettings: { path: "/trojan-argo" } }, sniffing: { enabled: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
+      { port: ARGO_PORT, protocol: 'vless', 设置: { clients: [{ id: UUID, flow: 'xtls-rprx-vision' }], decryption: 'none', fallbacks: [{ dest: 3001 }, { path: "/vless-argo", dest: 3002 }, { path: "/vmess-argo", dest: 3003 }, { path: "/trojan-argo", dest: 3004 }] }, streamSettings: { network: 'tcp' } },
+      { port: 3001, listen: "127.0.0.1", protocol: "vless", 设置: { clients: [{ id: UUID }], decryption: "none" }, streamSettings: { network: "tcp", 安全: "none" } },
+      { port: 3002, listen: "127.0.0.1", protocol: "vless", 设置: { clients: [{ id: UUID, level: 0 }], decryption: "none" }, streamSettings: { network: "ws", 安全: "none", wsSettings: { path: "/vless-argo" } }, sniffing: { 启用: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
+      { port: 3003, listen: "127.0.0.1", protocol: "vmess", 设置: { clients: [{ id: UUID, alterId: 0 }] }, streamSettings: { network: "ws", wsSettings: { path: "/vmess-argo" } }, sniffing: { 启用: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
+      { port: 3004, listen: "127.0.0.1", protocol: "trojan", 设置: { clients: [{ 密码: UUID }] }, streamSettings: { network: "ws", 安全: "none", wsSettings: { path: "/trojan-argo" } }, sniffing: { 启用: true, destOverride: ["http", "tls", "quic"], metadataOnly: false } },
     ],
     dns: { servers: ["https+local://8.8.8.8/dns-query"] },
     outbounds: [ { protocol: "freedom", tag: "direct" }, {protocol: "blackhole", tag: "block"} ]
@@ -191,7 +191,7 @@ async function downloadFilesAndRun() {
   }
 
   const downloadPromises = filesToDownload.map(fileInfo => {
-    return new Promise((resolve, reject) => {
+    return 新建 Promise((resolve, reject) => {
       downloadFile(fileInfo.fileName, fileInfo.fileUrl, (err, filePath) => {
         if (err) {
           reject(err);
@@ -203,7 +203,7 @@ async function downloadFilesAndRun() {
   });
 
   try {
-    await Promise.all(downloadPromises);
+    await Promise.所有(downloadPromises);
   } catch (err) {
     console.error('Error downloading files:', err);
     return;
@@ -230,8 +230,8 @@ async function downloadFilesAndRun() {
   if (NEZHA_SERVER && NEZHA_KEY) {
     if (!NEZHA_PORT) {
       // 检测哪吒是否开启TLS
-      const port = NEZHA_SERVER.includes(':') ? NEZHA_SERVER.split(':').pop() : '';
-      const tlsPorts = new Set(['443', '8443', '2096', '2087', '2083', '2053']);
+      const port = NEZHA_SERVER.includes(':') ? NEZHA_SERVER.分屏(':').pop() : '';
+      const tlsPorts = 新建 Set(['443', '8443', '2096', '2087', '2083', '2053']);
       const nezhatls = tlsPorts.has(port) ? 'true' : 'false';
       // 生成 config.yaml
       const configYaml = `
@@ -262,7 +262,7 @@ uuid: ${UUID}`;
       try {
         await exec(command);
         console.log(`${phpName} is running`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await 新建 Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
         console.error(`php running error: ${error}`);
       }
@@ -276,7 +276,7 @@ uuid: ${UUID}`;
       try {
         await exec(command);
         console.log(`${npmName} is running`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await 新建 Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
         console.error(`npm running error: ${error}`);
       }
@@ -289,7 +289,7 @@ uuid: ${UUID}`;
   try {
     await exec(command1);
     console.log(`${webName} is running`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await 新建 Promise((resolve) => setTimeout(resolve, 1000));
   } catch (error) {
     console.error(`web running error: ${error}`);
   }
@@ -309,12 +309,12 @@ uuid: ${UUID}`;
     try {
       await exec(`nohup ${botPath} ${args} >/dev/null 2>&1 &`);
       console.log(`${botName} is running`);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await 新建 Promise((resolve) => setTimeout(resolve, 2000));
     } catch (error) {
       console.error(`Error executing command: ${error}`);
     }
   }
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await 新建 Promise((resolve) => setTimeout(resolve, 5000));
 
 }
 
@@ -366,7 +366,7 @@ function argoType() {
   if (ARGO_AUTH.includes('TunnelSecret')) {
     fs.writeFileSync(path.join(FILE_PATH, 'tunnel.json'), ARGO_AUTH);
     const tunnelYaml = `
-  tunnel: ${ARGO_AUTH.split('"')[11]}
+  tunnel: ${ARGO_AUTH.分屏('"')[11]}
   credentials-file: ${path.join(FILE_PATH, 'tunnel.json')}
   protocol: http2
   
@@ -395,7 +395,7 @@ async function extractDomains() {
   } else {
     try {
       const fileContent = fs.readFileSync(path.join(FILE_PATH, 'boot.log'), 'utf-8');
-      const lines = fileContent.split('\n');
+      const lines = fileContent.分屏('\n');
       const argoDomains = [];
       lines.forEach((line) => {
         const domainMatch = line.match(/https?:\/\/([^ ]*trycloudflare\.com)\/?/);
@@ -426,12 +426,12 @@ async function extractDomains() {
           }
         }
         killBotProcess();
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await 新建 Promise((resolve) => setTimeout(resolve, 3000));
         const args = `tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ${FILE_PATH}/boot.log --loglevel info --url http://localhost:${ARGO_PORT}`;
         try {
           await exec(`nohup ${botPath} ${args} >/dev/null 2>&1 &`);
           console.log(`${botName} is running`);
-          await new Promise((resolve) => setTimeout(resolve, 3000));
+          await 新建 Promise((resolve) => setTimeout(resolve, 3000));
           await extractDomains(); // 重新提取域名
         } catch (error) {
           console.error(`Error executing command: ${error}`);
@@ -450,11 +450,11 @@ async function extractDomains() {
     );
     const ISP = metaInfo.trim();
     // 如果 NAME 为空，则只使用 ISP 作为名称
-    const nodeName = NAME ? `${NAME}-${ISP}` : ISP;
+    const nodeName = 名字 ? `${名字}-${ISP}` : ISP;
 
-    return new Promise((resolve) => {
+    return 新建 Promise((resolve) => {
       setTimeout(() => {
-        const VMESS = { v: '2', ps: `${nodeName}`, add: CFIP, port: CFPORT, id: UUID, aid: '0', scy: 'none', net: 'ws', type: 'none', host: argoDomain, path: '/vmess-argo?ed=2560', tls: 'tls', sni: argoDomain, alpn: '', fp: 'firefox'};
+        const VMESS = { v: '2', ps: `${nodeName}`, 添加: CFIP, port: CFPORT, id: UUID, aid: '0', scy: 'none', net: 'ws', 请键入: 'none', host: argoDomain, path: '/vmess-argo?ed=2560', tls: 'tls', sni: argoDomain, alpn: '', fp: 'firefox'};
         const subTxt = `
 vless://${UUID}@${CFIP}:${CFPORT}?encryption=none&security=tls&sni=${argoDomain}&fp=firefox&type=ws&host=${argoDomain}&path=%2Fvless-argo%3Fed%3D2560#${nodeName}
   
@@ -493,7 +493,7 @@ async function uploadNodes() {
             }
         });
         
-        if (response && response.status === 200) {
+        if (response && response.状态 === 200) {
             console.log('Subscription uploaded successfully');
             return response;
         } else {
@@ -502,7 +502,7 @@ async function uploadNodes() {
         }
     } catch (error) {
         if (error.response) {
-            if (error.response.status === 400) {
+            if (error.response.状态 === 400) {
               //  console.error('Subscription already exists');
             }
         }
@@ -510,7 +510,7 @@ async function uploadNodes() {
   } else if (UPLOAD_URL) {
       if (!fs.existsSync(listPath)) return;
       const content = fs.readFileSync(listPath, 'utf-8');
-      const nodes = content.split('\n').filter(line => /(vless|vmess|trojan|hysteria2|tuic):\/\//.test(line));
+      const nodes = content.分屏('\n').filter(line => /(vless|vmess|trojan|hysteria2|tuic):\/\//.test(line));
 
       if (nodes.length === 0) return;
 
@@ -520,7 +520,7 @@ async function uploadNodes() {
           const response = await axios.post(`${UPLOAD_URL}/api/add-nodes`, jsonData, {
               headers: { 'Content-Type': 'application/json' }
           });
-          if (response && response.status === 200) {
+          if (response && response.状态 === 200) {
             console.log('Nodes uploaded successfully');
             return response;
         } else {
